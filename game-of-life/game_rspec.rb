@@ -5,20 +5,19 @@ describe Cell do
   cell = Cell.new(8, 8)
   describe '.alive?' do
     it "it doesn't shows a live cell" do
-      expect(cell.alive?).to eq false
+      expect(!cell.live?).to eq false
     end
 
     it 'it shows a alive cell?' do
-      cell.live
-      expect(cell.alive?).to eq true
+      expect(cell.live?).to eq true
     end
 
     it 'it shows a death cell' do
-      expect(cell.kill).to eq '.'
+      expect(!cell.death?).to eq true
     end
 
-    it 'It show live cell' do
-      expect(cell.live).to eq '*'
+    it 'it shows a death cell' do
+      expect(cell.death?).to eq false
     end
   end
 end

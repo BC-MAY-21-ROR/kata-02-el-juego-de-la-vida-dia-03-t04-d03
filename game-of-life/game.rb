@@ -2,26 +2,14 @@ class Cell
   def initialize(row, column)
     @position_x = row
     @position_y = column
-    @alive = false
-    @sign = '.'
   end
 
-  def alive?
-    @alive
+  def live?
+    true
   end
 
-  def kill
-    @alive = false
-    @sign = '.'
-  end
-
-  def live
-    @alive = true
-    @sign = '*'
-  end
-
-  def print_sign
-    @sign
+  def death?
+    false
   end
 end
 
@@ -43,7 +31,7 @@ class Game
   def populate_grid
     grid_length.times do |row|
       grid_length.times do |column|
-        grid[row][column] = Cell.new(row, column)
+        grid[row][column] = Cell.new(row, column).death?
       end
     end
   end
@@ -52,7 +40,7 @@ class Game
     cell_initial_quantity.times do
       row = rand(0...grid_length)
       column = rand(0...grid_length)
-      grid[row][column].live
+      grid[row][column] = '*'
     end
   end
 
@@ -60,12 +48,23 @@ class Game
     test = ''
     grid_length.times do |row|
       grid_length.times do |column|
-        test += "#{grid[row][column].print_sign}|"
+        test += "#{grid[row][column] = "." }|"
       end
       puts test
       test = ''
     end
   end
+
+  def neighbors(game_state)
+    game_state[(x - 1), (y - 1)] + \
+    game_state[(x), (y - 1)] + \
+    game_state[(x + 1), (y - 1)] + \
+    game_state[(x - 1), (y)] + \
+    game_state[(x + 1), (y)] + \
+    game_state[(x - 1), (y + 1)] + \
+    game_state[(x), (y + 1)] + \
+    game_state[(x +1), (y + 1)]
+  end
 end
 
-Game.new(8).init
+Game.new(6).init
